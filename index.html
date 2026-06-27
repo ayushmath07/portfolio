@@ -1,271 +1,1203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayushman Math | Full Stack Developer</title>
-    <meta name="description" content="Ayushman Math is a full stack developer in Pune building secure backend systems, AI document retrieval APIs, and distributed automation projects.">
-    <meta name="keywords" content="Ayushman Math, Full Stack Developer, Backend Developer, FastAPI, Spring Boot, LangChain, FAISS, Portfolio">
-    <meta name="author" content="Ayushman Math">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayushman Math — AI/ML Engineer</title>
+  <meta name="description" content="Ayushman Math builds AI systems that ship. RAG pipelines, NLP engines, vector search — Pune, India.">
+  <meta name="author" content="Ayushman Math">
+  <meta name="theme-color" content="#111110">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════
+       TOKENS — warm obsidian palette
+       Coral accent from auditorium red panels
+    ══════════════════════════════════════ */
+    :root {
+      --bg: #111110;
+      --bg-up: #1A1917;
+      --bg-card: #201F1C;
+      --bg-elevated: #2A2825;
+      --text: #EDEBE8;
+      --text-dim: #8A8780;
+      --text-faint: #5C5A55;
+      --coral: #FF5C3A;
+      --coral-dim: rgba(255, 92, 58, 0.12);
+      --coral-glow: rgba(255, 92, 58, 0.25);
+      --gold: #E8B84D;
+      --lime: #A3E635;
+      --border: rgba(237, 235, 232, 0.08);
+      --border-hover: rgba(237, 235, 232, 0.16);
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+      --display: "Outfit", system-ui, sans-serif;
+      --body: "Inter", system-ui, sans-serif;
+      --mono: "JetBrains Mono", "Consolas", monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ══════════════════════════════════════
+       RESET
+    ══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
+
+    /* ══════════════════════════════════════
+       GRAIN OVERLAY — analog texture
+    ══════════════════════════════════════ */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ══════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════ */
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 56px);
+    }
+
+    section {
+      position: relative;
+      padding: clamp(80px, 14vh, 160px) 0;
+    }
+
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: all 350ms var(--ease);
+    }
+
+    .nav.pinned {
+      background: rgba(17, 17, 16, 0.88);
+      backdrop-filter: blur(24px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-mark {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    .nav-mark em {
+      font-style: normal;
+      color: var(--coral);
+    }
+
+    .nav-links { display: flex; gap: 6px; }
+
+    .nav-links a {
+      padding: 7px 14px;
+      font-family: var(--display);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      border-radius: 6px;
+      transition: all 200ms var(--ease);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--bg-card);
+    }
+
+    /* Hamburger toggle (mobile only) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text);
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: currentColor;
+      margin: 4px 0;
+      transition: all 200ms var(--ease);
+    }
+
+    /* ══════════════════════════════════════
+       HERO — split canvas asymmetry
+    ══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 100px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+    }
+
+    .hero-text { max-width: 680px; }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 5px 12px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--coral);
+      background: var(--coral-dim);
+      border: 1px solid rgba(255, 92, 58, 0.18);
+      border-radius: 4px;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(3.4rem, 7.5vw, 6.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+      color: var(--text);
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
+      line-height: 1.65;
+      color: var(--text-dim);
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      font-family: var(--display);
+      font-size: 0.84rem;
+      font-weight: 700;
+      border: 1px solid;
+      border-radius: 8px;
+      transition: all 220ms var(--ease);
+      cursor: pointer;
+    }
+
+    .btn-fill {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+    }
+
+    .btn-fill:hover {
+      background: #E8472A;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--coral-glow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text-dim);
+      transform: translateY(-2px);
+    }
+
+    /* Hero photo — breaks the grid, raw, not in a card */
+    .hero-photo-col {
+      position: relative;
+      align-self: stretch;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      filter: contrast(1.05) saturate(0.85);
+    }
+
+    .hero-photo-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, var(--bg) 0%, transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-photo-note {
+      position: absolute;
+      bottom: 28px;
+      left: 20px;
+      z-index: 2;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    /* Hero stats — horizontal strip below */
+    .hero-stats {
+      display: flex;
+      gap: clamp(28px, 4vw, 56px);
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .h-stat strong {
+      display: block;
+      font-family: var(--display);
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .h-stat span {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    /* ══════════════════════════════════════
+       SECTION LABEL
+    ══════════════════════════════════════ */
+    .s-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--coral);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .s-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .s-sub {
+      margin-top: 14px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      max-width: 520px;
+      font-size: 1rem;
+    }
+
+    .s-head { margin-bottom: clamp(36px, 6vh, 60px); }
+
+    /* ══════════════════════════════════════
+       ABOUT — asymmetric split
+    ══════════════════════════════════════ */
+    .about-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(36px, 6vw, 80px);
+      align-items: start;
+    }
+
+    .about-body p {
+      color: var(--text-dim);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .about-body p + p { margin-top: 16px; }
+
+    .about-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-top: 28px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .a-fact {
+      padding: 18px;
+      background: var(--bg);
+    }
+
+    .a-fact strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--coral);
+      letter-spacing: -0.02em;
+    }
+
+    .a-fact span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .about-photo-side {
+      position: relative;
+    }
+
+    .about-photo-side img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(0.8) contrast(1.06);
+      border: 1px solid var(--border);
+    }
+
+    /* Photo overlap element — the signature */
+    .about-photo-overlap {
+      position: absolute;
+      bottom: -24px;
+      right: -20px;
+      padding: 16px 20px;
+      background: var(--coral);
+      color: #fff;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      max-width: 200px;
+      z-index: 2;
+    }
+
+    /* ══════════════════════════════════════
+       PROJECTS
+    ══════════════════════════════════════ */
+    .project-stack { display: grid; gap: 18px; }
+
+    .proj {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: clamp(16px, 2.5vw, 32px);
+      align-items: start;
+      padding: clamp(22px, 3vw, 34px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 300ms var(--ease);
+    }
+
+    .proj:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+    }
+
+    .proj-num {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--bg-elevated);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      -webkit-text-stroke: 1px var(--text-faint);
+    }
+
+    .proj-body h3 {
+      font-family: var(--display);
+      font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .proj-body > p {
+      margin-top: 8px;
+      color: var(--text-dim);
+      line-height: 1.65;
+      font-size: 0.92rem;
+    }
+
+    .proj-badge {
+      padding: 4px 10px;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      font-weight: 600;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .badge-rag {
+      background: var(--coral-dim);
+      color: var(--coral);
+      border: 1px solid rgba(255, 92, 58, 0.2);
+    }
+
+    .badge-sys {
+      background: rgba(232, 184, 77, 0.1);
+      color: var(--gold);
+      border: 1px solid rgba(232, 184, 77, 0.2);
+    }
+
+    .badge-nlp {
+      background: rgba(163, 230, 53, 0.08);
+      color: var(--lime);
+      border: 1px solid rgba(163, 230, 53, 0.15);
+    }
+
+    /* Terminal-style output block */
+    .proj-term {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      line-height: 1.7;
+      color: var(--text-dim);
+    }
+
+    .proj-term .c { color: var(--coral); }
+    .proj-term .g { color: var(--lime); }
+    .proj-term .y { color: var(--gold); }
+
+    .proj-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 14px;
+    }
+
+    .proj-tech span {
+      padding: 3px 9px;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      font-weight: 500;
+      color: var(--text-faint);
+      background: var(--bg-up);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .proj-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--coral);
+      transition: gap 200ms var(--ease);
+    }
+
+    .proj-link:hover { gap: 10px; }
+
+    .proj-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    /* ══════════════════════════════════════
+       EXPERIENCE
+    ══════════════════════════════════════ */
+    .exp {
+      padding: clamp(24px, 4vw, 40px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      border-left: 3px solid var(--coral);
+    }
+
+    .exp-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .exp-co {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--coral);
+    }
+
+    .exp-when {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-faint);
+      padding: 3px 10px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+
+    .exp h3 {
+      font-family: var(--display);
+      font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .exp-bullets { margin-top: 14px; display: grid; gap: 8px; }
+
+    .exp-bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+
+    .exp-bullets li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+
+    /* ══════════════════════════════════════
+       SKILLS — AI is featured, rest supports
+    ══════════════════════════════════════ */
+    .skills-layout { display: grid; gap: 14px; }
+
+    .sk {
+      padding: clamp(20px, 3vw, 28px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: all 250ms var(--ease);
+    }
+
+    .sk:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* AI skill block — visually dominant */
+    .sk.primary {
+      background: linear-gradient(135deg, rgba(255, 92, 58, 0.06), var(--bg-card));
+      border-color: rgba(255, 92, 58, 0.15);
+      padding: clamp(28px, 4vw, 40px);
+    }
+
+    .sk-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .sk-icon {
+      display: none;
+    }
+
+    .sk h3 {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sk.primary h3 {
+      font-size: 1.3rem;
+      color: var(--coral);
+    }
+
+    .sk > p, .sk .sk-desc {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .sk-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .sk-tags span {
+      padding: 3px 9px;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      background: var(--bg);
+      color: var(--text-faint);
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+
+    .sk.primary .sk-tags span {
+      background: var(--coral-dim);
+      color: var(--coral);
+      border-color: rgba(255, 92, 58, 0.15);
+    }
+
+    /* ══════════════════════════════════════
+       CONTACT — split asymmetry again
+    ══════════════════════════════════════ */
+    .contact-split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: clamp(32px, 5vw, 72px);
+      align-items: start;
+    }
+
+    .contact-cta h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .contact-cta p {
+      margin-top: 16px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .contact-list { display: grid; gap: 10px; }
+
+    .contact-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: all 220ms var(--ease);
+    }
+
+    .contact-list a:hover {
+      border-color: var(--coral);
+      transform: translateX(6px);
+      background: var(--bg-up);
+    }
+
+    .cl-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+    }
+
+    .cl-val {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .foot {
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .foot p {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-faint);
+    }
+
+    /* ══════════════════════════════════════
+       SCROLL REVEAL
+    ══════════════════════════════════════ */
+    .rv {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 650ms cubic-bezier(0, 0, 0.2, 1),
+                  transform 650ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .rv.on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .rv-d1 { transition-delay: 80ms; }
+    .rv-d2 { transition-delay: 160ms; }
+    .rv-d3 { transition-delay: 240ms; }
+    .rv-d4 { transition-delay: 320ms; }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero {
+        min-height: auto;
+        padding-top: 120px;
+        padding-bottom: 60px;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-photo-col { justify-content: center; margin-top: 32px; }
+      .hero-photo-frame { max-width: 320px; }
+      .about-split { grid-template-columns: 1fr; }
+      .about-photo-side { max-width: 380px; }
+      .proj { grid-template-columns: auto 1fr; }
+      .proj-right { display: none; }
+      .contact-split { grid-template-columns: 1fr; }
+      .sk-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: clamp(2.8rem, 12vw, 4.2rem); }
+      .hero-stats { flex-direction: column; gap: 16px; }
+      .about-facts { grid-template-columns: 1fr; }
+      .about-photo-overlap { position: relative; bottom: auto; right: auto; margin-top: 12px; }
+
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        padding: 12px clamp(20px, 5vw, 56px) 20px;
+        background: rgba(17, 17, 16, 0.95);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        padding: 12px 0;
+        font-size: 0.88rem;
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .rv { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
-    <canvas id="signal-canvas" aria-hidden="true"></canvas>
 
-    <nav class="site-nav" id="navbar" aria-label="Primary navigation">
-        <a class="brand" href="#home" aria-label="Ayushman Math home">
-            <span>Ayushman Math</span>
-            <small>Full Stack Developer</small>
-        </a>
+  <!-- NAV -->
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="wrap">
+      <a href="#" class="nav-mark">ayushman<em>.</em></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="#about">about</a>
+        <a href="#projects">projects</a>
+        <a href="#experience">work</a>
+        <a href="#skills">skills</a>
+        <a href="#contact">contact</a>
+      </div>
+    </div>
+  </nav>
 
-        <button class="menu-toggle" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-        </button>
-
-        <div class="nav-panel" id="mobile-menu">
-            <a class="nav-link active" href="#home">Home</a>
-            <a class="nav-link" href="#profile">Profile</a>
-            <a class="nav-link" href="#experience">Experience</a>
-            <a class="nav-link" href="#work">Work</a>
-            <a class="nav-link" href="#stack">Stack</a>
-            <a class="nav-link" href="#contact">Contact</a>
-            <a class="resume-link" href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <div class="hero-tag rv">AI/ML Engineer · Pune</div>
+        <h1 class="rv rv-d1">I make<br>software<br>think.</h1>
+        <p class="hero-sub rv rv-d2">RAG pipelines, NLP engines, vector search. I build AI that actually deploys — not notebooks, real APIs with real uptime.</p>
+        <div class="hero-actions rv rv-d3">
+          <a class="btn btn-fill" href="resume.pdf" download>↓ Resume</a>
+          <a class="btn btn-outline" href="mailto:ayushmath07@gmail.com">Say hi</a>
+          <a class="btn btn-outline" href="https://github.com/ayushmath07" target="_blank" rel="noreferrer">GitHub</a>
         </div>
-    </nav>
-
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-grid">
-                <div class="hero-copy reveal">
-                    <p class="kicker">Pune, India / B.Tech CSE / July 2027</p>
-                    <h1>Ayushman Math builds secure backend systems.</h1>
-                    <p class="hero-summary">
-                        Full stack developer with internship experience shipping Spring Boot systems and current work in AI document retrieval with FastAPI, LangChain, FAISS, and Docker.
-                    </p>
-                    <div class="hero-actions">
-                        <a class="primary-action" href="#work">See selected work</a>
-                        <a class="quiet-action" href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushmath07@gmail.com" target="_blank" rel="noreferrer">Email me</a>
-                    </div>
-                </div>
-
-                <aside class="build-panel reveal" aria-label="Current engineering focus">
-                    <div class="panel-topline">
-                        <span>Current build</span>
-                        <span>Apr-May 2026</span>
-                    </div>
-                    <h2>Semantic Document Retrieval API</h2>
-                    <p>
-                        PDF ingestion, chunking, HuggingFace embeddings, FAISS vector search, and async FastAPI endpoints wrapped for Docker deployment.
-                    </p>
-                    <div class="route-map" aria-label="Retrieval pipeline">
-                        <span>upload</span>
-                        <i></i>
-                        <span>chunk</span>
-                        <i></i>
-                        <span>embed</span>
-                        <i></i>
-                        <span>retrieve</span>
-                    </div>
-                    <a class="panel-link" href="https://github.com/ayushmath07/Production-Grade-Semantic-RAG-API" target="_blank" rel="noreferrer">
-                        Open GitHub <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-                    </a>
-                </aside>
-            </div>
-        </section>
-
-        <section class="section profile-section" id="profile">
-            <div class="section-label reveal">01 / Profile</div>
-            <div class="profile-layout">
-                <div class="portrait-wrap reveal">
-                    <img src="image.jpeg" alt="Portrait of Ayushman Math" loading="lazy">
-                </div>
-                <div class="profile-copy reveal">
-                    <p class="lead">
-                        I work best where product logic, data flow, and system reliability meet. My recent internship work focused on secure role-based backend architecture; my current projects push that foundation into AI search and retrieval.
-                    </p>
-                    <p>
-                        I am pursuing B.Tech in Computer Science and Engineering at Bharati Vidyapeeth College of Engineering, Pune, with a 9.47 CGPA. I care about fundamentals: DSA, OOP, DBMS, operating systems, networks, linear algebra, and web development.
-                    </p>
-                </div>
-                <div class="metric-strip reveal" aria-label="Key resume metrics">
-                    <div>
-                        <strong data-target="9.47" data-decimals="2">9.47</strong>
-                        <span>CGPA</span>
-                    </div>
-                    <div>
-                        <strong data-target="25" data-suffix="+">25+</strong>
-                        <span>secured APIs</span>
-                    </div>
-                    <div>
-                        <strong data-target="110" data-suffix="+">110+</strong>
-                        <span>LeetCode solved</span>
-                    </div>
-                    <div>
-                        <strong data-target="3">3</strong>
-                        <span>RBAC roles</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="experience">
-            <div class="section-label reveal">02 / Experience</div>
-            <article class="experience-item reveal">
-                <div class="item-meta">
-                    <span>Jan 2026 - Feb 2026</span>
-                    <span>Pune / Remote</span>
-                </div>
-                <div class="item-main">
-                    <p class="eyebrow">Full Stack Developer Intern / Landmine Soft</p>
-                    <h2>College Management Portal with secured Spring Boot architecture.</h2>
-                    <p>
-                        Built a full stack portal with 3 RBAC-enforced user roles, 11+ PostgreSQL entities, 25+ secured REST endpoints, JWT authentication, BCrypt password hashing, and Render deployment in 6 weeks.
-                    </p>
-                    <p>
-                        Designed layered Spring Boot services with centralized exception handling, DTO validation, secure password reset, and complete OpenAPI / Swagger documentation.
-                    </p>
-                    <div class="tag-row">
-                        <span>Spring Boot</span>
-                        <span>PostgreSQL</span>
-                        <span>JWT</span>
-                        <span>RBAC</span>
-                        <span>HTML</span>
-                        <span>CSS</span>
-                    </div>
-                    <a class="text-link" href="https://college-management-vrh4.onrender.com/swagger-ui/index.html" target="_blank" rel="noreferrer">
-                        Live API docs <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </article>
-        </section>
-
-        <section class="section work-section" id="work">
-            <div class="section-label reveal">03 / Selected Work</div>
-            <div class="work-list">
-                <article class="project-row reveal">
-                    <span class="project-index">01</span>
-                    <div>
-                        <p class="eyebrow">Python / FastAPI / LangChain / FAISS / HuggingFace / Docker</p>
-                        <h2>Semantic Document Retrieval API</h2>
-                    </div>
-                    <p>
-                        AI document Q&A pipeline for extracting PDF text, chunking documents, generating embeddings, storing vectors in FAISS, and querying through async API endpoints.
-                    </p>
-                    <a href="https://github.com/ayushmath07/Production-Grade-Semantic-RAG-API" target="_blank" rel="noreferrer" aria-label="Open Semantic Document Retrieval API on GitHub">
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                    </a>
-                </article>
-
-                <article class="project-row reveal">
-                    <span class="project-index">02</span>
-                    <div>
-                        <p class="eyebrow">Python / TCP Sockets / Multi-threading</p>
-                        <h2>Distributed Task Scheduling System</h2>
-                    </div>
-                    <p>
-                        Multi-node scheduler over raw TCP sockets with round-robin worker pools, heartbeat-based node monitoring, and automatic task re-queuing on disconnect.
-                    </p>
-                    <a href="https://github.com/ayushmath07/Work-distributor" target="_blank" rel="noreferrer" aria-label="Open Distributed Task Scheduling System on GitHub">
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                    </a>
-                </article>
-
-                <article class="project-row reveal">
-                    <span class="project-index">03</span>
-                    <div>
-                        <p class="eyebrow">Python / BeautifulSoup / NLP / TF-IDF</p>
-                        <h2>Automated Job Search & Matching System</h2>
-                    </div>
-                    <p>
-                        Scraping and matching pipeline that ingests 100+ daily listings from LinkedIn and TimesJobs, deduplicates them, and ranks roles against resume keywords.
-                    </p>
-                    <a href="https://github.com/ayushmath07/searching-jobs" target="_blank" rel="noreferrer" aria-label="Open Automated Job Search and Matching System on GitHub">
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                    </a>
-                </article>
-
-                <article class="project-row reveal">
-                    <span class="project-index">04</span>
-                    <div>
-                        <p class="eyebrow">JavaScript / HTML / CSS / Linear Algebra / Animation</p>
-                        <h2>AeroGlyph - Drone Swarm Formation Engine</h2>
-                    </div>
-                    <p>
-                        Browser visualizer for generating and animating drone swarm formations with matrix-based geometric transitions and smooth shape interpolation.
-                    </p>
-                    <a href="https://github.com/ayushmath07" target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                    </a>
-                </article>
-            </div>
-        </section>
-
-        <section class="section stack-section" id="stack">
-            <div class="section-label reveal">04 / Stack</div>
-            <div class="stack-grid">
-                <article class="stack-block reveal">
-                    <h3>Languages</h3>
-                    <p>Python, Java, C++, C, JavaScript, HTML, CSS, SQL</p>
-                </article>
-                <article class="stack-block reveal">
-                    <h3>Frontend</h3>
-                    <p>React.js, HTML5, CSS3, responsive web design, REST API integration</p>
-                </article>
-                <article class="stack-block reveal">
-                    <h3>Backend</h3>
-                    <p>Spring Boot, FastAPI, REST APIs, JWT authentication, PostgreSQL, MySQL, Redis</p>
-                </article>
-                <article class="stack-block reveal">
-                    <h3>AI / Data</h3>
-                    <p>LangChain, HuggingFace Transformers, FAISS, NumPy, Pandas</p>
-                </article>
-                <article class="stack-block reveal">
-                    <h3>Tools</h3>
-                    <p>Docker, AWS EC2, S3, RDS, GitHub Actions, Git, Linux</p>
-                </article>
-                <article class="stack-block reveal">
-                    <h3>Concepts</h3>
-                    <p>System design, CI/CD, concurrency, OOP design patterns, Agile / SDLC</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section proof-section" id="proof">
-            <div class="section-label reveal">05 / Proof</div>
-            <div class="proof-list reveal">
-                <p><strong>NPTEL:</strong> DSA using Java and Programming in Java, both scored 73/100.</p>
-                <p><strong>NCSC:</strong> Nationally awarded research on Headphone Overuse Awareness.</p>
-                <p><strong>Competitive programming:</strong> 110+ LeetCode problems across arrays, trees, graphs, DP, and sliding window.</p>
-            </div>
-        </section>
-
-        <section class="contact-section" id="contact">
-            <div class="contact-inner reveal">
-                <p class="kicker">Available for internships, backend roles, and serious build conversations.</p>
-                <h2>Tell me what needs to exist. I will help engineer it.</h2>
-                <div class="contact-actions">
-                    <a class="primary-action" href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushmath07@gmail.com" target="_blank" rel="noreferrer">ayushmath07@gmail.com</a>
-                    <a class="quiet-action" href="tel:+917020951733">+91 7020951733</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <p>Designed and built by Ayushman Math.</p>
-        <div>
-            <a href="https://github.com/ayushmath07" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/ayushman-math" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://leetcode.com/u/ayushmath07/" target="_blank" rel="noreferrer" aria-label="LeetCode"><i class="fa-solid fa-code"></i></a>
+        <div class="hero-stats rv rv-d4">
+          <div class="h-stat">
+            <strong>9.47</strong>
+            <span>GPA · CSE</span>
+          </div>
+          <div class="h-stat">
+            <strong>5-stage</strong>
+            <span>RAG pipeline</span>
+          </div>
+          <div class="h-stat">
+            <strong>25+</strong>
+            <span>prod APIs</span>
+          </div>
         </div>
-    </footer>
+      </div>
+      <div class="hero-photo-col rv rv-d2">
+        <div class="hero-photo-frame">
+          <img src="image.jpeg" alt="Ayushman Math" loading="eager">
+          <span class="hero-photo-note">pune, 2025</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <hr class="divider">
+
+  <!-- ═══════ ABOUT ═══════ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="s-head rv">
+        <div class="s-label">01 — About</div>
+        <h2 class="s-title">Backend got me here.<br>AI is where I'm going.</h2>
+      </div>
+      <div class="about-split">
+        <div class="about-body">
+          <p class="rv"><strong>CS undergrad at Bharati Vidyapeeth, Pune.</strong> Graduating 2027. I started with Java and Spring Boot — learned databases, auth, fault tolerance. The stuff that keeps production alive.</p>
+          <p class="rv rv-d1">Then I discovered AI/ML and everything clicked. Now I build RAG pipelines, NLP engines, and vector search systems. <strong>The backend skills aren't separate — they're what let me ship AI as real APIs, not just Jupyter demos.</strong></p>
+          <div class="about-facts rv rv-d2">
+            <div class="a-fact"><strong>AI + API</strong><span>Every project merges ML with production infra</span></div>
+            <div class="a-fact"><strong>3 yrs</strong><span>Python, Java, system design</span></div>
+            <div class="a-fact"><strong>Ship it</strong><span>Docker, FastAPI, real deployments</span></div>
+            <div class="a-fact"><strong>9.47</strong><span>GPA in B.Tech CSE</span></div>
+          </div>
+        </div>
+        <div class="about-photo-side rv rv-d2">
+          <img src="image2.png" alt="Ayushman Math" loading="lazy">
+          <div class="about-photo-overlap">The kind of engineer who tests the wiring before posing for the photo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════ PROJECTS ═══════ -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="s-head rv">
+        <div class="s-label">02 — Projects</div>
+        <h2 class="s-title">Three systems<br>with brains attached.</h2>
+      </div>
+      <div class="project-stack">
+
+        <!-- P1: RAG -->
+        <article class="proj rv">
+          <div class="proj-num">01</div>
+          <div class="proj-body">
+            <h3>Semantic Document Retrieval API</h3>
+            <p>5-stage RAG pipeline. PDFs go in, intelligent answers come out. Async FastAPI endpoints, Docker containers, NDCG-benchmarked retrieval.</p>
+            <div class="proj-term">
+              <span class="c">$</span> pipeline.query("refund policy?")<br>
+              <span class="g">→ 5 stages</span> · ingest → chunk → embed → index → rerank<br>
+              <span class="y">latency: 23ms</span> · modular model swapping via LangChain
+            </div>
+            <div class="proj-tech">
+              <span>Python</span><span>FastAPI</span><span>LangChain</span><span>FAISS</span><span>HuggingFace</span><span>Docker</span>
+            </div>
+            <a class="proj-link" href="https://github.com/ayushmath07/Production-Grade-Semantic-RAG-API" target="_blank" rel="noreferrer">view source →</a>
+          </div>
+          <div class="proj-right">
+            <span class="proj-badge badge-rag">AI / RAG</span>
+          </div>
+        </article>
+
+        <!-- P2: Distributed -->
+        <article class="proj rv rv-d1">
+          <div class="proj-num">02</div>
+          <div class="proj-body">
+            <h3>Distributed Task Scheduler</h3>
+            <p>Multi-node scheduler over raw TCP sockets. Nodes die, tasks don't — heartbeat fault detection re-queues everything automatically.</p>
+            <div class="proj-term">
+              <span class="c">$</span> scheduler.status()<br>
+              <span class="g">nodes: 4 active</span> · heartbeat: 2s · round-robin pools<br>
+              <span class="y">fault_recovery: auto</span> · 0 tasks lost on disconnect
+            </div>
+            <div class="proj-tech">
+              <span>Python</span><span>TCP Sockets</span><span>Multi-threading</span><span>Concurrency</span>
+            </div>
+            <a class="proj-link" href="https://github.com/ayushmath07/Work-distributor" target="_blank" rel="noreferrer">view source →</a>
+          </div>
+          <div class="proj-right">
+            <span class="proj-badge badge-sys">Systems</span>
+          </div>
+        </article>
+
+        <!-- P3: NLP Job Matcher -->
+        <article class="proj rv rv-d2">
+          <div class="proj-num">03</div>
+          <div class="proj-body">
+            <h3>Job Search NLP Pipeline</h3>
+            <p>Scrapes 100+ daily listings, TF-IDF vectorizes them, ranks by cosine similarity against your resume. Job hunting by meaning, not keywords.</p>
+            <div class="proj-term">
+              <span class="c">$</span> matcher.find(resume="ayushman.pdf")<br>
+              <span class="g">→ 100+ scraped</span> · TF-IDF vectorized<br>
+              <span class="y">ranked_by: cosine_similarity</span> · top matches returned
+            </div>
+            <div class="proj-tech">
+              <span>Python</span><span>BeautifulSoup</span><span>TF-IDF</span><span>NLP</span><span>Cosine Similarity</span>
+            </div>
+            <a class="proj-link" href="https://github.com/ayushmath07/searching-jobs" target="_blank" rel="noreferrer">view source →</a>
+          </div>
+          <div class="proj-right">
+            <span class="proj-badge badge-nlp">NLP</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════ EXPERIENCE ═══════ -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="s-head rv">
+        <div class="s-label">03 — Experience</div>
+        <h2 class="s-title">Production code.<br>Real deadlines.</h2>
+      </div>
+      <div class="exp rv">
+        <div class="exp-top">
+          <span class="exp-co">Landmine Soft</span>
+          <span class="exp-when">Jan — Feb 2026</span>
+        </div>
+        <h3>Full Stack Developer Intern</h3>
+        <ul class="exp-bullets">
+          <li>Shipped a College Management Portal in 6 weeks — 25+ JWT-secured REST APIs, 11+ PostgreSQL entities, 3-tier RBAC.</li>
+          <li>Designed layered Spring Boot backend with centralized exception handling and OpenAPI/Swagger docs for 25+ endpoints.</li>
+        </ul>
+        <div class="proj-tech" style="margin-top:16px;">
+          <span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>JWT</span><span>RBAC</span><span>Swagger</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════ SKILLS ═══════ -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="s-head rv">
+        <div class="s-label">04 — Skills</div>
+        <h2 class="s-title">What I actually use.</h2>
+      </div>
+      <div class="skills-layout">
+
+        <!-- AI/ML — featured -->
+        <div class="sk primary rv">
+          <h3>AI / ML</h3>
+          <p class="sk-desc">RAG, embeddings, vector search, NLP pipelines — shipped as production APIs, not notebook demos.</p>
+          <div class="sk-tags">
+            <span>LangChain</span><span>HuggingFace</span><span>FAISS</span><span>RAG</span><span>Embeddings</span><span>NLP</span><span>TF-IDF</span><span>ML Pipelines</span><span>Vector Search</span>
+          </div>
+        </div>
+
+        <div class="sk-row">
+          <div class="sk rv rv-d1">
+
+            <h3>Backend</h3>
+            <p class="sk-desc">The production backbone that lets AI actually deploy.</p>
+            <div class="sk-tags">
+              <span>Spring Boot</span><span>FastAPI</span><span>PostgreSQL</span><span>REST APIs</span><span>JWT</span><span>Docker</span>
+            </div>
+          </div>
+          <div class="sk rv rv-d2">
+
+            <h3>Systems</h3>
+            <p class="sk-desc">Distributed schedulers, TCP, concurrency — the hard parts.</p>
+            <div class="sk-tags">
+              <span>Distributed Systems</span><span>Concurrency</span><span>TCP</span><span>Multi-threading</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sk-row">
+          <div class="sk rv rv-d1">
+
+            <h3>Languages & Tools</h3>
+            <p class="sk-desc">Daily drivers across every project.</p>
+            <div class="sk-tags">
+              <span>Python</span><span>Java</span><span>SQL</span><span>Git</span><span>Docker</span><span>Linux</span><span>OpenAPI</span>
+            </div>
+          </div>
+          <div class="sk rv rv-d2">
+
+            <h3>Foundations</h3>
+            <p class="sk-desc">The fundamentals everything else stands on.</p>
+            <div class="sk-tags">
+              <span>DSA</span><span>OOP</span><span>System Design</span><span>Algorithms</span><span>OS</span><span>Networks</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════ CONTACT ═══════ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-split">
+        <div class="contact-cta rv">
+          <div class="s-label">05 — Contact</div>
+          <h2>Got an AI problem?<br>Send it over.</h2>
+          <p>Looking for someone who builds the model AND the API? Skip the formalities. Send the actual problem.</p>
+        </div>
+        <div class="contact-list rv rv-d1">
+          <a href="mailto:ayushmath07@gmail.com" id="c-email">
+            <span class="cl-label">email</span>
+            <span class="cl-val">ayushmath07@gmail.com</span>
+          </a>
+          <a href="tel:+917020951733" id="c-phone">
+            <span class="cl-label">phone</span>
+            <span class="cl-val">+91 7020951733</span>
+          </a>
+          <a href="https://github.com/ayushmath07" target="_blank" rel="noreferrer" id="c-gh">
+            <span class="cl-label">github</span>
+            <span class="cl-val">ayushmath07</span>
+          </a>
+          <a href="https://linkedin.com/in/ayushman-math" target="_blank" rel="noreferrer" id="c-li">
+            <span class="cl-label">linkedin</span>
+            <span class="cl-val">ayushman-math</span>
+          </a>
+          <a href="https://leetcode.com/u/ayushmath07/" target="_blank" rel="noreferrer" id="c-lc">
+            <span class="cl-label">leetcode</span>
+            <span class="cl-val">ayushmath07</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="wrap">
+      <p>built by ayushman · 2026</p>
+    </div>
+  </footer>
+
+  <!-- ═══════ JS ═══════ -->
+  <script>
+    /* Nav pin on scroll */
+    const nav = document.getElementById("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("pinned", scrollY > 48);
+    }, { passive: true });
+
+    /* Mobile hamburger toggle */
+    const toggle = document.getElementById("nav-toggle");
+    const links = document.getElementById("nav-links");
+    if (toggle && links) {
+      toggle.addEventListener("click", () => {
+        links.classList.toggle("open");
+      });
+      links.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => links.classList.remove("open"));
+      });
+    }
+
+    /* Scroll reveal */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("on");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+
+    document.querySelectorAll(".rv").forEach(el => obs.observe(el));
+
+    /* Smooth anchor */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", e => {
+        const t = document.querySelector(a.getAttribute("href"));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: "smooth" }); }
+      });
+    });
+  </script>
 </body>
 </html>
